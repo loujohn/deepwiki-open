@@ -2,7 +2,7 @@
   "embedder": {
     "client_class": "OllamaClient",
     "model_kwargs": {
-      "model": "bge-m3"
+      "model": "nomic-embed-text"
     }
   },
   "retriever": {
