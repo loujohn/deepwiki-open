@@ -1,5 +1,5 @@
 {
-  "default_provider": "google",
+  "default_provider": "openai",
   "providers": {
     "dashscope": {
       "default_model": "qwen-plus",
@@ -20,7 +20,7 @@
       }
     },
     "google": {
-      "default_model": "gemini-2.5-flash",
+      "default_model": "",
       "supportsCustomModel": true,
       "models": {
         "gemini-2.5-flash": {
@@ -41,7 +41,7 @@
       }
     },
     "openai": {
-      "default_model": "gpt-5-nano",
+      "default_model": "qwen3-vl-235b-a22b-thinking",
       "supportsCustomModel": true,
       "models": {
         "gpt-5": {
@@ -70,6 +70,38 @@
         },
         "o4-mini": {
           "temperature": 1.0
+        },
+        "qwen3-vl-235b-a22b-thinking": {
+          "temperature": 0.7,
+          "top_p": 0.8
+        },
+        "qwen3-vl-235b-a22b-instruct": {
+          "temperature": 0.7,
+          "top_p": 0.8
+        },
+        "qwen3-next-80b-a3b-instruct": {
+          "temperature": 0.7,
+          "top_p": 0.8
+        },
+        "qwen3-next-80b-a3b-thinking": {
+          "temperature": 0.7,
+          "top_p": 0.8
+        },
+        "qwen3-30b-a3b-instruct-2507": {
+          "temperature": 0.7,
+          "top_p": 0.8
+        },
+        "qwen3-30b-a3b-thinking-2507": {
+          "temperature": 0.7,
+          "top_p": 0.8
+        },
+        "qwen3-235b-a22b-thinking-2507": {
+          "temperature": 0.7,
+          "top_p": 0.8
+        },
+        "qwen3-235b-a22b-instruct-2507": {
+          "temperature": 0.7,
+          "top_p": 0.8
         }
       }
     },
@@ -196,4 +228,3 @@
     }
   }
 }
-
