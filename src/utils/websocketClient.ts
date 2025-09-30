@@ -3,11 +3,19 @@
  * This replaces the HTTP streaming endpoint with a WebSocket connection
  */
 
-// Get the server base URL from environment or use default
-const WS_PROXY_URL = process.env.WS_PROXY_URL || "http://localhost:8001";
-// Convert HTTP URL to WebSocket URL
+// Prefer public Next.js env so the value is available in the browser bundle
+const rawWsProxyUrl =
+  process.env.NEXT_PUBLIC_WS_PROXY_URL ||
+  process.env.WS_PROXY_URL ||
+  "http://localhost:8001";
+
+// Normalise the protocol so both http:// and ws:// inputs work
+const WS_PROXY_URL = rawWsProxyUrl.replace(/^http(s?):/, "ws$1:");
+
 export const getWebSocketUrl = () => {
-  return `${WS_PROXY_URL}/ws/chat`;
+  // Avoid double slashes when callers append extra paths
+  const base = WS_PROXY_URL.endsWith("/") ? WS_PROXY_URL.slice(0, -1) : WS_PROXY_URL;
+  return `${base}/ws/chat`;
 };
 
 export interface ChatMessage {

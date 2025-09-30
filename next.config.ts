@@ -2,9 +2,17 @@ import type { NextConfig } from "next";
 
 const TARGET_SERVER_BASE_URL = process.env.SERVER_BASE_URL || 'http://localhost:8001';
 
+const WS_PROXY_URL =
+  process.env.NEXT_PUBLIC_WS_PROXY_URL ||
+  process.env.WS_PROXY_URL ||
+  'http://localhost:8001';
+
 const nextConfig: NextConfig = {
   /* config options here */
   output: 'standalone',
+  env: {
+    NEXT_PUBLIC_WS_PROXY_URL: WS_PROXY_URL,
+  },
   // Optimize build for Docker
   experimental: {
     optimizePackageImports: ['@mermaid-js/mermaid', 'react-syntax-highlighter'],
