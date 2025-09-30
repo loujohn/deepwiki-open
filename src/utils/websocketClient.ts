@@ -4,17 +4,29 @@
  */
 
 // Get the server base URL from environment or use default
-const SERVER_BASE_URL = process.env.SERVER_BASE_URL || 'http://localhost:8001';
+const SERVER_BASE_URL =
+  process.env.NEXT_PUBLIC_SERVER_BASE_URL ||
+  process.env.SERVER_BASE_URL ||
+  'http://localhost:8001';
+
+const USE_WS_PROXY = process.env.NEXT_PUBLIC_WS_PROXY === 'true';
 
 // Convert HTTP URL to WebSocket URL
 export const getWebSocketUrl = () => {
+  if (USE_WS_PROXY && typeof window !== 'undefined') {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    return `${protocol}//${window.location.host}/ws/chat`;
+  }
+
   const base = SERVER_BASE_URL || 'http://localhost:8001';
   const url = new URL('/ws/chat', base);
+
   if (url.protocol === 'https:') {
     url.protocol = 'wss:';
-  } else {
+  } else if (url.protocol === 'http:') {
     url.protocol = 'ws:';
   }
+
   return url.toString();
 };
 
