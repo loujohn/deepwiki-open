@@ -55,6 +55,7 @@ async def handle_websocket_chat(websocket: WebSocket):
     This replaces the HTTP streaming endpoint with a WebSocket connection.
     """
     await websocket.accept()
+    logger.info("WebSocket connection accepted at /ws/chat")
 
     try:
         # Receive and parse the request data

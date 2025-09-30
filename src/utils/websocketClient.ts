@@ -7,11 +7,15 @@
 const SERVER_BASE_URL = process.env.SERVER_BASE_URL || 'http://localhost:8001';
 
 // Convert HTTP URL to WebSocket URL
-const getWebSocketUrl = () => {
-  const baseUrl = SERVER_BASE_URL;
-  // Replace http:// with ws:// or https:// with wss://
-  const wsBaseUrl = baseUrl.replace(/^http/, 'ws');
-  return `${wsBaseUrl}/ws/chat`;
+export const getWebSocketUrl = () => {
+  const base = SERVER_BASE_URL || 'http://localhost:8001';
+  const url = new URL('/ws/chat', base);
+  if (url.protocol === 'https:') {
+    url.protocol = 'wss:';
+  } else {
+    url.protocol = 'ws:';
+  }
+  return url.toString();
 };
 
 export interface ChatMessage {
