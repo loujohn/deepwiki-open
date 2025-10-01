@@ -443,6 +443,12 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
     *   EXTENSIVELY use Mermaid diagrams (e.g., \`flowchart TD\`, \`sequenceDiagram\`, \`classDiagram\`, \`erDiagram\`, \`graph TD\`) to visually represent architectures, flows, relationships, and schemas found in the source files.
     *   Ensure diagrams are accurate and directly derived from information in the \`[RELEVANT_SOURCE_FILES]\`.
     *   Provide a brief explanation before or after each diagram to give context.
+    *   **CRITICAL CODE BLOCK FORMAT**: Mermaid diagrams MUST be properly enclosed in code blocks:
+      \`\`\`mermaid
+      graph TD
+          NodeA --> NodeB
+      \`\`\`
+    *   **NEVER include non-Mermaid content inside the code block** (no Sources, no explanations, no other text)
     *   CRITICAL: All diagrams MUST follow strict vertical orientation and syntax rules:
        - Use "graph TD" (top-down) directive for flow diagrams
        - NEVER use "graph LR" (left-right)
@@ -474,15 +480,18 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
          - State names can use Chinese directly: \`未登录 --> 已登录\`
          - Transitions with Chinese conditions need quotes: \`未登录 --> 已登录 : "登录成功"\`
        - **EXAMPLES OF CORRECT CHINESE MERMAID SYNTAX:**
-         \`\`\`
-         // Flowchart - simple Chinese node names
+         
+         Example 1 - Flowchart:
+         \`\`\`mermaid
          graph TD
              用户请求 -->|"验证身份"| 身份验证
              身份验证 -->|"验证成功"| 处理请求
              身份验证 -->|"验证失败"| 返回错误
              处理请求 -->|"生成响应"| 返回结果
+         \`\`\`
          
-         // Sequence diagram - direct Chinese participants
+         Example 2 - Sequence diagram:
+         \`\`\`mermaid
          sequenceDiagram
              participant 用户
              participant 前端
@@ -492,6 +501,13 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
              后端-->>前端: "返回登录结果"
              前端-->>用户: "显示登录状态"
              Note over 用户: "用户登录完成"
+         \`\`\`
+         
+         **WRONG - Never mix other content in Mermaid blocks:**
+         \`\`\`mermaid
+         graph TD
+             A --> B
+         Sources: [src/file.js]
          \`\`\`
 
 4.  **Tables:**
