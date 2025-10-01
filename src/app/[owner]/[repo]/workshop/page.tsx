@@ -231,6 +231,8 @@ I'll provide you with information from the project's wiki to help you create a m
 
 ${wikiContent}
 
+🚨 CRITICAL MERMAID RULE: When creating Mermaid diagrams, NEVER include Sources, file references, or explanatory text inside mermaid code blocks. Keep them pure!
+
 This workshop should be designed as a hands-on tutorial that guides users through understanding, using, and potentially contributing to this project. The workshop should be highly readable and optimized for quick onboarding of new users.
 
 The workshop should include:
@@ -569,7 +571,7 @@ Estimated time: 20-30 minutes | Combines concepts from all exercises
     <div className="min-h-screen flex flex-col bg-[var(--background)]">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-[var(--card-bg)] border-b border-[var(--border-color)] shadow-sm">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="container flex justify-between items-center px-4 py-3 mx-auto">
           <div className="flex items-center space-x-4">
             <Link
               href={`/${owner}/${repo}${window.location.search}`}
@@ -605,22 +607,22 @@ Estimated time: 20-30 minutes | Combines concepts from all exercises
       </header>
 
       {/* Main content */}
-      <main className="flex-1 container mx-auto px-4 py-6">
+      <main className="container flex-1 px-4 py-6 mx-auto">
         {isLoading && !workshopContent ? (
-          <div className="flex flex-col items-center justify-center p-8">
+          <div className="flex flex-col justify-center items-center p-8">
             <div className="w-12 h-12 border-4 border-[var(--accent-primary)]/30 border-t-[var(--accent-primary)] rounded-full animate-spin mb-4"></div>
             <p className="text-[var(--foreground)]">{loadingMessage}</p>
           </div>
         ) : error ? (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4 mb-6">
-            <h3 className="text-red-800 dark:text-red-400 font-medium mb-2">{messages.common?.error || 'Error'}</h3>
+          <div className="p-4 mb-6 bg-red-50 rounded-md border border-red-200 dark:bg-red-900/20 dark:border-red-800">
+            <h3 className="mb-2 font-medium text-red-800 dark:text-red-400">{messages.common?.error || 'Error'}</h3>
             <p className="text-red-700 dark:text-red-300">{error}</p>
           </div>
         ) : (
           <div className="bg-[var(--card-bg)] border border-[var(--border-color)] rounded-lg shadow-sm p-6">
             {exportError && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-3 mb-4">
-                <p className="text-red-700 dark:text-red-300 text-sm">{exportError}</p>
+              <div className="p-3 mb-4 bg-red-50 rounded-md border border-red-200 dark:bg-red-900/20 dark:border-red-800">
+                <p className="text-sm text-red-700 dark:text-red-300">{exportError}</p>
               </div>
             )}
             <Markdown content={workshopContent} />

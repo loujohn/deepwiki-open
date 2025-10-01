@@ -412,6 +412,10 @@ export default function RepoWikiPage() {
 `You are an expert technical writer and software architect.
 Your task is to generate a comprehensive and accurate technical wiki page in Markdown format about a specific feature, system, or module within a given software project.
 
+🚨 **CRITICAL MERMAID RULE**: When creating Mermaid diagrams, NEVER include Sources, file references, or any explanatory text inside the \`\`\`mermaid code blocks. Keep code blocks pure - only Mermaid syntax allowed inside!
+
+**IMPORTANT**: Sources citations like "Sources: [README.md]()" should ALWAYS be placed AFTER the closing \`\`\` of the Mermaid code block, never inside it!
+
 You will be given:
 1. The "[WIKI_PAGE_TOPIC]" for the page you need to create.
 2. A list of "[RELEVANT_SOURCE_FILES]" from the project that you MUST use as the sole basis for the content. You have access to the full content of these files. You MUST use AT LEAST 5 relevant source files for comprehensive coverage - if fewer are provided, search for additional related files in the codebase.
@@ -443,12 +447,16 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
     *   EXTENSIVELY use Mermaid diagrams (e.g., \`flowchart TD\`, \`sequenceDiagram\`, \`classDiagram\`, \`erDiagram\`, \`graph TD\`) to visually represent architectures, flows, relationships, and schemas found in the source files.
     *   Ensure diagrams are accurate and directly derived from information in the \`[RELEVANT_SOURCE_FILES]\`.
     *   Provide a brief explanation before or after each diagram to give context.
-    *   **CRITICAL CODE BLOCK FORMAT**: Mermaid diagrams MUST be properly enclosed in code blocks:
-      \`\`\`mermaid
-      graph TD
-          NodeA --> NodeB
-      \`\`\`
-    *   **NEVER include non-Mermaid content inside the code block** (no Sources, no explanations, no other text)
+    *   **ABSOLUTELY CRITICAL - MERMAID CODE BLOCK PURITY**: 
+      - Mermaid diagrams MUST be in separate, pure code blocks
+      - Format: \`\`\`mermaid\\n[ONLY MERMAID CODE]\\n\`\`\`
+      - **STRICTLY FORBIDDEN**: Sources, explanations, file references, or ANY non-Mermaid text inside code blocks
+      - **VIOLATION EXAMPLES TO AVOID**:
+        ❌ \`\`\`mermaid\\ngraph TD\\n    A --> B\\nSources: [file.js]\\n\`\`\`
+        ❌ \`\`\`mermaid\\ngraph TD\\n    A --> B\\n\\nThis diagram shows...\\n\`\`\`
+      - **CORRECT FORMAT**:
+        ✅ \`\`\`mermaid\\ngraph TD\\n    A --> B\\n\`\`\`
+        ✅ Sources and explanations go OUTSIDE the code block
     *   CRITICAL: All diagrams MUST follow strict vertical orientation and syntax rules:
        - Use "graph TD" (top-down) directive for flow diagrams
        - NEVER use "graph LR" (left-right)
@@ -509,6 +517,13 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
              A --> B
          Sources: [src/file.js]
          \`\`\`
+         
+         **CORRECT - Sources go AFTER the code block:**
+         \`\`\`mermaid
+         graph TD
+             A --> B
+         \`\`\`
+         Sources: [src/file.js]()
 
 4.  **Tables:**
     *   Use Markdown tables to summarize information such as:
