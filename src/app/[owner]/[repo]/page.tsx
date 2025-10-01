@@ -443,20 +443,56 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
     *   EXTENSIVELY use Mermaid diagrams (e.g., \`flowchart TD\`, \`sequenceDiagram\`, \`classDiagram\`, \`erDiagram\`, \`graph TD\`) to visually represent architectures, flows, relationships, and schemas found in the source files.
     *   Ensure diagrams are accurate and directly derived from information in the \`[RELEVANT_SOURCE_FILES]\`.
     *   Provide a brief explanation before or after each diagram to give context.
-    *   CRITICAL: All diagrams MUST follow strict vertical orientation:
+    *   CRITICAL: All diagrams MUST follow strict vertical orientation and syntax rules:
        - Use "graph TD" (top-down) directive for flow diagrams
        - NEVER use "graph LR" (left-right)
        - Maximum node width should be 3-4 words
-       - For sequence diagrams:
+       - **MANDATORY SYNTAX RULES FOR CHINESE TEXT:**
+         - **Edge Labels**: ALL edge labels containing Chinese characters MUST be wrapped in double quotes
+           - Correct: \`A -->|"处理请求"| B\`, \`C -.->|"验证失败"| D\`, \`E ==>|"返回结果"| F\`
+           - WRONG: \`A -->|处理请求| B\`, \`C -.->|验证失败| D\`, \`E ==>|返回结果| F\`
+           - This applies to ALL arrow types: \`-->\`, \`---\`, \`-.->>\`, \`==>\`, \`<--\`, \`<-.\`, \`<==\`, etc.
+         - **Node Labels**: For flowcharts, you can use Chinese directly as node IDs or with labels:
+           - Simple: \`用户管理 --> 数据处理\`
+           - With labels: \`A["用户管理"] --> B["数据处理"]\`
+           - Both work, choose based on readability
+       - **For sequence diagrams:**
          - Start with "sequenceDiagram" directive on its own line
-         - Define ALL participants at the beginning
-         - Use descriptive but concise participant names
+         - Participants can be defined directly with Chinese names: \`participant 用户\`, \`participant 前端\`, \`participant 后端\`
+         - Message labels with Chinese characters must use quotes: \`用户->>前端: "发送请求"\`
+         - Notes with Chinese text must use quotes: \`Note over 用户: "输入用户名密码"\`
          - Use the correct arrow types:
            - ->> for request/asynchronous messages
            - -->> for response messages
            - -x for failed messages
          - Include activation boxes using +/- notation
-         - Add notes for clarification using "Note over" or "Note right of"
+       - **For class diagrams:**
+         - Class names can use Chinese directly: \`class 用户管理\`
+         - Method names should be in English for compatibility: \`用户管理 : +login()\`
+         - Relationships with Chinese labels need quotes: \`用户管理 -->|"管理"| 用户\`
+       - **For state diagrams:**
+         - State names can use Chinese directly: \`未登录 --> 已登录\`
+         - Transitions with Chinese conditions need quotes: \`未登录 --> 已登录 : "登录成功"\`
+       - **EXAMPLES OF CORRECT CHINESE MERMAID SYNTAX:**
+         \`\`\`
+         // Flowchart - simple Chinese node names
+         graph TD
+             用户请求 -->|"验证身份"| 身份验证
+             身份验证 -->|"验证成功"| 处理请求
+             身份验证 -->|"验证失败"| 返回错误
+             处理请求 -->|"生成响应"| 返回结果
+         
+         // Sequence diagram - direct Chinese participants
+         sequenceDiagram
+             participant 用户
+             participant 前端
+             participant 后端
+             用户->>前端: "输入登录信息"
+             前端->>后端: "发送登录请求"
+             后端-->>前端: "返回登录结果"
+             前端-->>用户: "显示登录状态"
+             Note over 用户: "用户登录完成"
+         \`\`\`
 
 4.  **Tables:**
     *   Use Markdown tables to summarize information such as:
@@ -1910,12 +1946,12 @@ IMPORTANT:
   const [isModelSelectionModalOpen, setIsModelSelectionModalOpen] = useState(false);
 
   return (
-    <div className="h-screen paper-texture p-4 md:p-8 flex flex-col">
+    <div className="flex flex-col p-4 h-screen paper-texture md:p-8">
       <style>{wikiStyles}</style>
 
       <header className="max-w-[90%] xl:max-w-[1400px] mx-auto mb-8 h-fit w-full">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex gap-4 items-center">
             <Link href="/" className="text-[var(--accent-primary)] hover:text-[var(--highlight)] flex items-center gap-1.5 transition-colors border-b border-[var(--border-color)] hover:border-[var(--accent-primary)] pb-0.5">
               <FaHome /> {messages.repoPage?.home || 'Home'}
             </Link>
@@ -1928,7 +1964,7 @@ IMPORTANT:
           <div className="flex flex-col items-center justify-center p-8 bg-[var(--card-bg)] rounded-lg shadow-custom card-japanese">
             <div className="relative mb-6">
               <div className="absolute -inset-4 bg-[var(--accent-primary)]/10 rounded-full blur-md animate-pulse"></div>
-              <div className="relative flex items-center justify-center">
+              <div className="flex relative justify-center items-center">
                 <div className="w-3 h-3 bg-[var(--accent-primary)]/70 rounded-full animate-pulse"></div>
                 <div className="w-3 h-3 bg-[var(--accent-primary)]/70 rounded-full animate-pulse delay-75 mx-2"></div>
                 <div className="w-3 h-3 bg-[var(--accent-primary)]/70 rounded-full animate-pulse delay-150"></div>
@@ -1941,7 +1977,7 @@ IMPORTANT:
 
             {/* Progress bar for page generation */}
             {wikiStructure && (
-              <div className="w-full max-w-md mt-3">
+              <div className="mt-3 w-full max-w-md">
                 <div className="bg-[var(--background)]/50 rounded-full h-2 mb-3 overflow-hidden border border-[var(--border-color)]">
                   <div
                     className="bg-[var(--accent-primary)] h-2 rounded-full transition-all duration-300 ease-in-out"
@@ -1990,7 +2026,7 @@ IMPORTANT:
           <div className="bg-[var(--highlight)]/5 border border-[var(--highlight)]/30 rounded-lg p-5 mb-4 shadow-sm">
             <div className="flex items-center text-[var(--highlight)] mb-3">
               <FaExclamationTriangle className="mr-2" />
-              <span className="font-bold font-serif">{messages.repoPage?.errorTitle || messages.common?.error || 'Error'}</span>
+              <span className="font-serif font-bold">{messages.repoPage?.errorTitle || messages.common?.error || 'Error'}</span>
             </div>
             <p className="text-[var(--foreground)] text-sm mb-3">{error}</p>
             <p className="text-[var(--muted)] text-xs">
@@ -2079,7 +2115,7 @@ IMPORTANT:
                     <button
                       onClick={() => exportWiki('markdown')}
                       disabled={isExporting}
-                      className="btn-japanese flex items-center text-xs px-3 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center px-3 py-2 text-xs rounded-md btn-japanese disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <FaDownload className="mr-2" />
                       {messages.repoPage?.exportAsMarkdown || 'Export as Markdown'}
@@ -2113,7 +2149,7 @@ IMPORTANT:
             </div>
 
             {/* Wiki Content */}
-            <div id="wiki-content" className="w-full flex-grow p-6 lg:p-8 overflow-y-auto">
+            <div id="wiki-content" className="overflow-y-auto flex-grow p-6 w-full lg:p-8">
               {currentPageId && generatedPages[currentPageId] ? (
                 <div className="max-w-[900px] xl:max-w-[1000px] mx-auto">
                   <h3 className="text-xl font-bold text-[var(--foreground)] mb-4 break-words font-serif">
@@ -2122,7 +2158,7 @@ IMPORTANT:
 
 
 
-                  <div className="prose prose-sm md:prose-base lg:prose-lg max-w-none">
+                  <div className="max-w-none prose prose-sm md:prose-base lg:prose-lg">
                     <Markdown
                       content={generatedPages[currentPageId].content}
                     />
@@ -2154,7 +2190,7 @@ IMPORTANT:
                 <div className="flex flex-col items-center justify-center p-8 text-[var(--muted)] h-full">
                   <div className="relative mb-4">
                     <div className="absolute -inset-2 bg-[var(--accent-primary)]/5 rounded-full blur-md"></div>
-                    <FaBookOpen className="text-4xl relative z-10" />
+                    <FaBookOpen className="relative z-10 text-4xl" />
                   </div>
                   <p className="font-serif">
                     {messages.repoPage?.selectPagePrompt || 'Select a page from the navigation to view its content'}
@@ -2189,7 +2225,7 @@ IMPORTANT:
       {/* Ask Modal - Always render but conditionally show/hide */}
       <div className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 transition-opacity duration-300 ${isAskModalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="bg-[var(--card-bg)] rounded-lg shadow-xl w-full max-w-3xl max-h-[80vh] flex flex-col">
-          <div className="flex items-center justify-end p-3 absolute top-0 right-0 z-10">
+          <div className="flex absolute top-0 right-0 z-10 justify-end items-center p-3">
             <button
               onClick={() => {
                 // Just close the modal without clearing the conversation
@@ -2201,7 +2237,7 @@ IMPORTANT:
               <FaTimes className="text-xl" />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="overflow-y-auto flex-1 p-4">
             <Ask
               repoInfo={effectiveRepoInfo}
               provider={selectedProviderState}

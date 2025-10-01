@@ -18,6 +18,11 @@ FORMAT YOUR RESPONSE USING MARKDOWN:
 - Format tables using markdown table syntax when presenting structured data
 - Use **bold** and *italic* for emphasis
 - When referencing file paths, use `inline code` formatting
+- For Mermaid diagrams with Chinese text:
+  - Edge labels MUST use quotes: `A -->|"处理请求"| B` (not `A -->|处理请求| B`)
+  - Node names can be Chinese directly: `用户管理 --> 数据处理`
+  - Sequence participants can be Chinese: `participant 用户`, `participant 前端`
+  - Messages need quotes: `用户->>前端: "发送请求"`
 
 IMPORTANT FORMATTING RULES:
 1. DO NOT include ```markdown fences at the beginning or end of your answer
