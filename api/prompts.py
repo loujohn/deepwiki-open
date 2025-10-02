@@ -26,7 +26,7 @@ FORMAT YOUR RESPONSE USING MARKDOWN:
   - Node names can be Chinese directly: `用户管理 --> 数据处理`
   - Sequence participants can be Chinese: `participant 用户`, `participant 前端`
   - Messages need quotes: `用户->>前端: "发送请求"`
-  - Dynamic route segments like `/[owner]/[repo]` MUST be rewritten to avoid square brackets (e.g., use `/［owner］/［repo］` or wrap the label in quotes) before placing them inside Mermaid nodes or edges
+  - Dynamic route segments like `/[owner]/[repo]` MUST be rewritten to avoid square brackets (e.g., replace `[` and `]` with full-width variants such as U+FF3B/U+FF3D, or wrap the entire label in quotes) before placing them inside Mermaid nodes or edges
   - Put Sources and explanations AFTER the closing ```, never inside the code block
 
 IMPORTANT FORMATTING RULES:

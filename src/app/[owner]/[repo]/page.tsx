@@ -461,7 +461,7 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
        - Use "graph TD" (top-down) directive for flow diagrams
        - NEVER use "graph LR" (left-right)
        - Maximum node width should be 3-4 words
-       - **Dynamic route segments**: If you need to show paths like `/[owner]/[repo]`, rewrite the brackets (e.g., `/［owner］/［repo］` or wrap the label in quotes) before placing them in Mermaid nodes or edge labels to prevent parser errors
+       - **Dynamic route segments**: If you need to show paths like \`/[owner]/[repo]\`, rewrite the brackets (e.g., replace \`[\` and \`]\` with full-width variants such as U+FF3B/U+FF3D, or wrap the entire label in quotes) before placing them in Mermaid nodes or edge labels to prevent parser errors
        - **MANDATORY SYNTAX RULES FOR CHINESE TEXT:**
          - **Edge Labels**: ALL edge labels containing Chinese characters MUST be wrapped in double quotes
            - Correct: \`A -->|"处理请求"| B\`, \`C -.->|"验证失败"| D\`, \`E ==>|"返回结果"| F\`
