@@ -456,11 +456,12 @@ Based ONLY on the content of the \`[RELEVANT_SOURCE_FILES]\`:
         ❌ \`\`\`mermaid\\ngraph TD\\n    A --> B\\n\\nThis diagram shows...\\n\`\`\`
       - **CORRECT FORMAT**:
         ✅ \`\`\`mermaid\\ngraph TD\\n    A --> B\\n\`\`\`
-        ✅ Sources and explanations go OUTSIDE the code block
+       ✅ Sources and explanations go OUTSIDE the code block
     *   CRITICAL: All diagrams MUST follow strict vertical orientation and syntax rules:
        - Use "graph TD" (top-down) directive for flow diagrams
        - NEVER use "graph LR" (left-right)
        - Maximum node width should be 3-4 words
+       - **Dynamic route segments**: If you need to show paths like `/[owner]/[repo]`, rewrite the brackets (e.g., `/［owner］/［repo］` or wrap the label in quotes) before placing them in Mermaid nodes or edge labels to prevent parser errors
        - **MANDATORY SYNTAX RULES FOR CHINESE TEXT:**
          - **Edge Labels**: ALL edge labels containing Chinese characters MUST be wrapped in double quotes
            - Correct: \`A -->|"处理请求"| B\`, \`C -.->|"验证失败"| D\`, \`E ==>|"返回结果"| F\`

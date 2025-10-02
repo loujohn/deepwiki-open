@@ -281,7 +281,7 @@ IMPORTANT FORMATTING GUIDELINES:
 2. Use bullet points and numbered lists for clarity
 3. Highlight important information in **bold** or with blockquotes
 4. Use code blocks with proper syntax highlighting
-5. Include Mermaid diagrams where they would help illustrate concepts or workflows (CRITICAL: Properly enclose in \`\`\`mermaid code blocks with NO other content inside. For Chinese text: wrap edge labels in quotes \`A -->|"处理请求"| B\`, Chinese node names are OK \`用户管理 --> 数据处理\`, Chinese participants are OK \`participant 用户\`)
+5. Include Mermaid diagrams where they would help illustrate concepts or workflows (CRITICAL: Properly enclose in \`\`\`mermaid code blocks with NO other content inside. For Chinese text: wrap edge labels in quotes \`A -->|"处理请求"| B\`, Chinese node names are OK \`用户管理 --> 数据处理\`, Chinese participants are OK \`participant 用户\`. If you need to display dynamic paths like `/[owner]/[repo]`, replace the square brackets (for example `/［owner］/［repo］`) or wrap the label in quotes before putting them in Mermaid code.)
 6. Put solutions in collapsible <details> sections
 7. Use tables for comparing options or summarizing information
 8. Break long sections into smaller, digestible chunks
